@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tech.code2048.mapper.DepartmentMapper">
+    <insert id="add">
+        insert into `department`(`dname`, `dlocation`) values(#{dname}, #{dlocation})
+    </insert>
+    <update id="update">
+        update `department` set `dname`=#{dname}, `dlocation`=#{dlocation} where `did`=#{did}
+    </update>
+    <delete id="del">
+        delete from `department` where `did`=#{did}
+    </delete>
+    <select id="findAll" resultType="department">
+        select * from `department`
+    </select>
+    <select id="findByDname" resultType="department">
+        select * from `department` where `dname`=#{dname}
+    </select>
+    <select id="findByDid" resultType="department">
+        select * from `department` where `did`=#{did}
+    </select>
+</mapper>

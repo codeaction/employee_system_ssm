@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tech.code2048.mapper.EmployeeMapper">
+    <insert id="add" parameterType="employee">
+        insert into
+            `employee`(`eno`,`ename`,`eage`,`egender`,`ejob`,`eentrydate`,`esalary`,`estate`,`did`)
+            values(#{eno}, #{ename}, #{eage}, #{egender}, #{ejob}, #{eentrydate}, #{esalary}, #{estate}, #{did})
+    </insert>
+    <update id="chgEstate">
+        update `employee` set `estate`=#{estate} where `eid`=#{eid}
+    </update>
+    <update id="update" parameterType="employee">
+        update `employee` set `ename`=#{ename}, `eage`=#{eage}, `egender`=#{egender}, `ejob`=#{ejob}, `eentrydate`=#{eentrydate}, `esalary`=#{esalary}, `did`=#{did} where `eid`=#{eid}
+    </update>
+    <select id="findByDid" resultType="employee">
+        select * from `employee` where `did`=#{did}
+    </select>
+    <select id="findById" resultType="employee">
+        select * from `employee` where `eid`=#{eid}
+    </select>
+    <select id="findAll" resultType="employeeVo">
+        SELECT e.*, d.`dname` dname FROM `employee` e, `department` d
+        <where>
+            e.`did`=d.`did`
+            <if test="ename!=null and ename!=''">
+                and e.`ename` like concat('%', #{ename}, '%')
+            </if>
+        </where>
+    </select>
+    <select id="maxEno" resultType="string">
+        SELECT MAX(`eno`) FROM `employee`
+    </select>
+</mapper>
